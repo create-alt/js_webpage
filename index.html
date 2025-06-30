@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptでAI体験！ブラウザで手書き数字認識</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>JavaScriptでAI体験！ブラウザで手書き数字認識 (MNIST)</h1>
+    </header>
+
+    <main>
+        <section id="introduction">
+            <h2>はじめに</h2>
+            <p>
+                このページは、「AIって難しそう…」と思っている方に、実は身近な技術であるJavaScriptを使って、手軽にAIを動かせることを体験してもらうためのサイトです。<br>
+                特別なソフトのインストールは不要です。お使いのWebブラウザだけで、AIの代表的なタスクである「画像認識」を試すことができます。
+            </p>
+            <p>
+                ここでは、手書きの数字をAIが認識する「MNIST分類」というタスクに挑戦します。サーバーにデータを送らず、すべてご自身のパソコン（ブラウザ）内で処理が完結するため、プライバシーの面でも安全です。
+            </p>
+        </section>
+
+        <section id="demo">
+            <h2>ライブデモ</h2>
+            <p>下の四角いエリアに、マウスで「0」から「9」までの数字を一つ描いてみてください。</p>
+            <div class="canvas-container">
+                <canvas id="canvas" width="280" height="280"></canvas>
+            </div>
+            <div class="controls">
+                <button id="clear-button">クリア</button>
+            </div>
+            <p>AIの予測結果:</p>
+            <div id="result">考え中...</div>
+        </section>
+
+        <section id="how-it-works">
+            <h2>仕組みの解説</h2>
+            <p>このデモは、Googleが開発したJavaScript向けのAIライブラリ「TensorFlow.js」を利用して作られています。</p>
+
+            <h3>1. TensorFlow.jsとは？</h3>
+            <p>
+                TensorFlow.jsは、WebブラウザやNode.js環境で機械学習モデルを開発・実行するためのオープンソースライブラリです。これを使うことで、Pythonなどで作ったAIモデルをブラウザで動かしたり、JavaScriptだけでAIを開発したりできます。
+            </p>
+
+            <h3>2. AIモデルの読み込み</h3>
+            <p>
+                AI（機械学習モデル）が賢くなるためには、大量のデータで「学習」する必要があります。しかし、ブラウザ上で一から学習させるのは非常に時間がかかり、ノートPCには大きな負荷がかかります。<br>
+                そこで今回は、事前に何万枚もの手書き数字画像を学習させた「学習済みモデル」を読み込んで利用します。
+            </p>
+            <pre><code class="language-js">
+// script.js の一部
+// 事前に学習されたモデルを読み込む非同期関数
+async function loadModel() {
+    // TensorFlow.jsが提供する学習済みモデルのURL
+    const modelUrl = 'https://storage.googleapis.com/tfjs-models/tfjs/mnist_cnn_v1/model.json';
+    model = await tf.loadLayersModel(modelUrl);
+    console.log("モデルの読み込みが完了しました。");
+}
+            </code></pre>
+
+            <h3>3. 手書き入力とデータの前処理</h3>
+            <p>
+                ユーザーがキャンバスに描いた絵は、280x280ピクセルの画像データです。これをAIモデルが理解できる形式に変換する必要があります。この変換処理を「前処理」と呼びます。
+            </p>
+            <ol>
+                <li><strong>グレースケール化</strong>: カラー情報を削り、白黒の濃淡情報のみにします。</li>
+                <li><strong>リサイズ</strong>: AIモデルの入力サイズである28x28ピクセルに画像を縮小します。</li>
+                <li><strong>テンソル化</strong>: 画像データをAIが計算できる数値の多次元配列（テンソル）に変換します。</li>
+                <li><strong>正規化</strong>: 各ピクセルの値を0〜255から0〜1の範囲に変換し、計算しやすくします。</li>
+            </ol>
+            <pre><code class="language-js">
+// script.js の一部
+// キャンバスの画像データをモデルが受け取れるテンソル形式に変換する
+const tensor = tf.browser.fromPixels(canvas, 1) // 1. グレースケール
+    .resizeNearestNeighbor([28, 28])             // 2. リサイズ
+    .cast('float32')                             // 3. テンソル化 (データ型変換)
+    .div(tf.scalar(255.0))                       // 4. 正規化
+    .expandDims(0);                              // バッチ次元の追加
+            </code></pre>
+
+            <h3>4. 予測の実行と結果の表示</h3>
+            <p>
+                前処理したデータをモデルに入力し、<code>model.predict()</code> を呼び出すことで予測を実行します。モデルは、「0」から「9」までの各数字である確率を返します。例えば、「この画像は "7" である確率が98%」といった具合です。<br>
+                最後に、最も確率が高い数字を探し出し、その結果を画面に表示します。
+            </p>
+            <pre><code class="language-js">
+// script.js の一部
+// 予測を実行
+const predictions = model.predict(tensor).dataSync();
+// 最も確率の高い数字のインデックスを取得
+const result = predictions.indexOf(Math.max(...predictions));
+            </code></pre>
+        </section>
+
+        <section id="github-pages">
+            <h2>自分で動かしてみよう (GitHub Pagesでの公開)</h2>
+            <p>このWebページは、GitHub Pagesという機能を使うことで、誰でも簡単に無料で公開できます。</p>
+            <ol>
+                <li><strong>GitHubリポジトリの作成</strong>: GitHubにログインし、新しいリポジトリを作成します（Publicに設定）。</li>
+                <li><strong>ファイルのアップロード</strong>: 作成したリポジトリに、<code>index.html</code>, <code>style.css</code>, <code>script.js</code> の3つのファイルをアップロードします。</li>
+                <li><strong>GitHub Pagesの設定</strong>:
+                    <ul>
+                        <li>リポジトリの「Settings」タブを開きます。</li>
+                        <li>左側のメニューから「Pages」を選択します。</li>
+                        <li>「Branch」を `main`（または `master`）に設定し、「/ (root)」フォルダを選択して「Save」をクリックします。</li>
+                    </ul>
+                </li>
+                <li><strong>公開！</strong>: しばらく待つと、ページ上部に `Your site is live at https://あなたのユーザー名.github.io/あなたのリポジトリ名/` のようにURLが表示されます。このURLにアクセスすれば、世界中の誰でもあなたのAI Webページを見ることができます。</li>
+            </ol>
+        </section>
+
+        <footer>
+            <p>このページは、JavaScriptとTensorFlow.jsを使ってブラウザ上でAIを動かすデモンストレーションです。</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
