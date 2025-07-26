@@ -3,105 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScriptでAI体験！ブラウザで手書き数字認識</title>
+    <title>主要JavaScriptフレームワークの特徴と比較</title>
     <link rel="stylesheet" href="main.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <h1>JavaScriptでAI体験！ブラウザで手書き数字認識 (MNIST)</h1>
+        <h1>主要JSフレームワークの種類と特徴</h1>
+        <p>現代のWeb開発に欠かせない、人気のJavaScriptフレームワークをまとめました。</p>
+        <p>「本コンテンツの作成時間（HTML/CSS/JavaScriptの設計・実装を含む）：約6時間」</p>
     </header>
 
     <main>
-        <section id="introduction">
-            <h2>はじめに</h2>
-            <p>
-                このページは、「AIって難しそう…」と思っている方に、実は身近な技術であるJavaScriptを使って、手軽にAIを動かせることを体験してもらうためのサイトです。<br>
-                特別なソフトのインストールは不要です。お使いのWebブラウザだけで、AIの代表的なタスクである「画像認識」を試すことができます。
-            </p>
-            <p>
-                ここでは、手書きの数字をAIが認識する「MNIST分類」というタスクに挑戦します。サーバーにデータを送らず、すべてご自身のパソコン（ブラウザ）内で処理が完結するため、プライバシーの面でも安全です。
-            </p>
-        </section>
+        <section id="frameworks">
+            <h2>フレームワーク一覧</h2>
+            <div class="card-container">
+                <article class="card">
+                    <a href="https://react.dev/" target="_blank" rel="noopener noreferrer">
+                        <img src="img/react.svg" alt="React ロゴ" class="logo">
+                    </a>
+                    <h3>React</h3>
+                    <p>Meta社（旧Facebook）が開発したUI構築用ライブラリ。コンポーネントベースの設計と仮想DOMによる高いパフォーマンスが特徴です。</p>
+                    <ul>
+                        <li><strong>コンポーネント指向:</strong> UIを独立した部品に分割して開発。</li>
+                        <li><strong>仮想DOM:</strong> 高速な差分描画を実現し、パフォーマンスを向上。</li>
+                        <li><strong>豊富なエコシステム:</strong> 膨大なライブラリやツールが存在。</li>
+                        <li><strong>Next.js</strong>の基盤であり、Webアプリ開発で絶大な人気。</li>
+                    </ul>
+                </article>
 
-        <section id="demo">
-            <h2>ライブデモ</h2>
-            <p>下の四角いエリアに、マウスで「0」から「9」までの数字を一つ描いてみてください。</p>
-            <div class="canvas-container">
-                <canvas id="canvas" width="280" height="280"></canvas>
+                <article class="card">
+                    <a href="https://angular.io/" target="_blank" rel="noopener noreferrer">
+                        <img src="img/angular.png" alt="Angular ロゴ" class="logo">
+                    </a>
+                    <h3>Angular</h3>
+                    <p>Googleが開発するフルスタックフレームワーク。大規模なエンタープライズアプリケーション開発に適した機能が豊富に揃っています。</p>
+                    <ul>
+                        <li><strong>フルスタック:</strong> 必要な機能がすべて揃ったオールインワン。</li>
+                        <li><strong>TypeScriptベース:</strong> 静的型付けによる堅牢な開発が可能。</li>
+                        <li><strong>双方向データバインディング:</strong> データとUIの同期が容易。</li>
+                        <li><strong>学習コスト:</strong> 機能が豊富なため、他のフレームワークより高め。</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <a href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="img/vue.svg" alt="Vue.js ロゴ" class="logo">
+                    </a>
+                    <h3>Vue.js</h3>
+                    <p>プログレッシブフレームワークと呼ばれ、小さく始めて徐々に拡張できます。学習しやすさとドキュメントの豊富さで人気です。</p>
+                    <ul>
+                        <li><strong>学習のしやすさ:</strong> シンプルなAPIで初心者にも優しい。</li>
+                        <li><strong>プログレッシブ:</strong> 小規模から大規模まで対応可能。</li>
+                        <li><strong>単一ファイルコンポーネント:</strong> 構造、スクリプト、スタイルを1つのファイルで管理。</li>
+                         <li><strong>Nuxt.js</strong>の基盤として利用される。</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <a href="https://svelte.dev/" target="_blank" rel="noopener noreferrer">
+                        <img src="img/svelte-logo-square.svg" alt="Svelte ロゴ" class="logo">
+                    </a>
+                    <h3>Svelte</h3>
+                    <p>仮想DOMを使わず、ビルド時に最適化された素のJavaScriptを生成するコンパイラ。非常に高速で軽量な動作が魅力です。</p>
+                    <ul>
+                        <li><strong>仮想DOM不使用:</strong> ランタイムのオーバーヘッドがない。</li>
+                        <li><strong>高速＆軽量:</strong> バンドルサイズが小さく、実行速度が速い。</li>
+                        <li><strong>記述量の削減:</strong> ボイラープレート（お決まりのコード）が少ない。</li>
+                        <li><strong>リアクティブ:</strong> 変数の代入だけでUIが更新される。</li>
+                    </ul>
+                </article>
+
+                 <article class="card">
+                    <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="img/next-js.svg" alt="Next.js ロゴ" class="logo">
+                    </a>
+                    <h3>Next.js</h3>
+                    <p>Reactを基盤としたフレームワーク。サーバーサイドレンダリング（SSR）や静的サイト生成（SSG）を簡単に実現できます。</p>
+                    <ul>
+                        <li><strong>Reactフレームワーク:</strong> Reactの機能を拡張し、開発体験を向上。</li>
+                        <li><strong>レンダリング手法:</strong> SSR, SSG, ISRなど柔軟な選択が可能。</li>
+                        <li><strong>ファイルベースルーティング:</strong> `pages`ディレクトリ構造がそのままURLになる。</li>
+                        <li><strong>Vercel</strong>による強力なサポートと簡単なデプロイ。</li>
+                    </ul>
+                </article>
+
+                 <article class="card">
+                    <a href="https://nuxt.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="img/nuxt.png" alt="Nuxt.js ロゴ" class="logo">
+                    </a>
+                    <h3>Nuxt.js</h3>
+                    <p>Vue.jsをベースにしたフレームワークで、Next.jsに強く影響を受けています。VueでSSRなどのモダンな開発を容易にします。</p>
+                    <ul>
+                        <li><strong>Vue.jsフレームワーク:</strong> Vue.jsでのSSR/SSG開発を効率化。</li>
+                        <li><strong>規約ベース:</strong> ディレクトリ構造に規約があり、設定が少なくて済む。</li>
+                        <li><strong>モジュールシステム:</strong> 豊富なモジュールで機能拡張が容易。</li>
+                        <li><strong>高い開発者体験:</strong> Vueのエコシステムを最大限に活用。</li>
+                    </ul>
+                </article>
             </div>
-            <div class="controls">
-                <button id="clear-button">クリア</button>
+        </section>
+
+        <section id="comparison">
+            <h2>⚖️ 特徴比較一覧</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>React</th>
+                            <th>Angular</th>
+                            <th>Vue.js</th>
+                            <th>Svelte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>開発元</strong></td>
+                            <td>Meta (Facebook)</td>
+                            <td>Google</td>
+                            <td>Evan You (個人)</td>
+                            <td>Rich Harris (個人)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>特徴</strong></td>
+                            <td>UIライブラリ</td>
+                            <td>フルスタックFW</td>
+                            <td>プログレッシブFW</td>
+                            <td>コンパイラ</td>
+                        </tr>
+                         <tr>
+                            <td><strong>学習コスト</strong></td>
+                            <td>中</td>
+                            <td>高</td>
+                            <td>低</td>
+                            <td>低</td>
+                        </tr>
+                        <tr>
+                            <td><strong>パフォーマンス</strong></td>
+                            <td>高 (仮想DOM)</td>
+                            <td>高</td>
+                            <td>高 (仮想DOM)</td>
+                            <td>非常に高い</td>
+                        </tr>
+                        <tr>
+                            <td><strong>エコシステム</strong></td>
+                            <td>非常に大きい</td>
+                            <td>大きい</td>
+                            <td>大きい</td>
+                            <td>成長中</td>
+                        </tr>
+                         <tr>
+                            <td><strong>主な派生FW</strong></td>
+                            <td>Next.js, Gatsby</td>
+                            <td>-</td>
+                            <td>Nuxt.js</td>
+                            <td>SvelteKit</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <p>AIの予測結果:</p>
-            <div id="result">考え中...</div>
         </section>
 
-        <section id="how-it-works">
-            <h2>仕組みの解説</h2>
-            <p>このデモは、Googleが開発したJavaScript向けのAIライブラリ「TensorFlow.js」を利用して作られています。</p>
-
-            <h3>1. TensorFlow.jsとは？</h3>
-            <p>
-                TensorFlow.jsは、WebブラウザやNode.js環境で機械学習モデルを開発・実行するためのオープンソースライブラリです。これを使うことで、Pythonなどで作ったAIモデルをブラウザで動かしたり、JavaScriptだけでAIを開発したりできます。
-            </p>
-
-            <h3>2. AIモデルの読み込み</h3>
-            <p>
-                AI（機械学習モデル）が賢くなるためには、大量のデータで「学習」する必要があります。しかし、ブラウザ上で一から学習させるのは非常に時間がかかり、ノートPCには大きな負荷がかかります。<br>
-                そこで今回は、事前に何万枚もの手書き数字画像を学習させた「学習済みモデル」を読み込んで利用します。
-            </p>
-            <pre><code class="language-js">
-// script.js の一部
-// 事前に学習されたモデルを読み込む非同期関数
-async function loadModel() {
-    // TensorFlow.jsが提供する学習済みモデルのURL
-    const modelUrl = 'https://storage.googleapis.com/tfjs-models/tfjs/mnist_cnn_v1/model.json';
-    model = await tf.loadLayersModel(modelUrl);
-    console.log("モデルの読み込みが完了しました。");
-}
-            </code></pre>
-
-            <h3>3. 手書き入力とデータの前処理</h3>
-            <p>
-                ユーザーがキャンバスに描いた絵は、280x280ピクセルの画像データです。これをAIモデルが理解できる形式に変換する必要があります。この変換処理を「前処理」と呼びます。
-            </p>
-            <ol>
-                <li><strong>グレースケール化</strong>: カラー情報を削り、白黒の濃淡情報のみにします。</li>
-                <li><strong>リサイズ</strong>: AIモデルの入力サイズである28x28ピクセルに画像を縮小します。</li>
-                <li><strong>テンソル化</strong>: 画像データをAIが計算できる数値の多次元配列（テンソル）に変換します。</li>
-                <li><strong>正規化</strong>: 各ピクセルの値を0〜255から0〜1の範囲に変換し、計算しやすくします。</li>
-            </ol>
-            <pre><code class="language-js">
-// script.js の一部
-// キャンバスの画像データをモデルが受け取れるテンソル形式に変換する
-const tensor = tf.browser.fromPixels(canvas, 1) // 1. グレースケール
-    .resizeNearestNeighbor([28, 28])             // 2. リサイズ
-    .cast('float32')                             // 3. テンソル化 (データ型変換)
-    .div(tf.scalar(255.0))                       // 4. 正規化
-    .expandDims(0);                              // バッチ次元の追加
-            </code></pre>
-
-            <h3>4. 予測の実行と結果の表示</h3>
-            <p>
-                前処理したデータをモデルに入力し、<code>model.predict()</code> を呼び出すことで予測を実行します。モデルは、「0」から「9」までの各数字である確率を返します。例えば、「この画像は "7" である確率が98%」といった具合です。<br>
-                最後に、最も確率が高い数字を探し出し、その結果を画面に表示します。
-            </p>
-            <pre><code class="language-js">
-// script.js の一部
-// 予測を実行
-const predictions = model.predict(tensor).dataSync();
-// 最も確率の高い数字のインデックスを取得
-const result = predictions.indexOf(Math.max(...predictions));
-            </code></pre>
-        </section>
-
-        <footer>
-            <p>このページは、JavaScriptとTensorFlow.jsを使ってブラウザ上でAIを動かすデモンストレーションです。</p>
-        </footer>
     </main>
 
-    <script src="script.js"></script>
+    <footer>
+        <p>&copy; 2025 JS Frameworks Guide. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>
